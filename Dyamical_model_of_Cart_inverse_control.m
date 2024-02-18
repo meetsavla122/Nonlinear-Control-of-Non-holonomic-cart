@@ -60,10 +60,10 @@ theta_desired = zeros(length(tspan),1);
 
     for e=1:length(tspan)
         
-        %desired_ode = [desired(1); y0(2);desired(3)];
-        %[error] = error_calculation(desired_ode,[y0(e,1);y0(e,2);y0(e,3)]);
+        desired_ode = [desired(1); y0(2);desired(3)];
+        [error] = error_calculation(desired_ode,[y0(e,1);y0(e,2);y0(e,3)]);
         e_ref = desired(:,1);  y_ref = desired(:,2);
-        [error, error_arg]=find_distance(y0(e,1), y0(e,2), e_ref ,  )
+        [error, error_arg]=find_distance(y0(e,1), y0(e,2), e_ref , )
         error_vec(:,e) = error;
         [ynew] = rungeKutta4(tspan(e),y0(e), @(t,x)dynamics(t, y,m,I, sigma,Q,R,ca,error_arg tspan,error,dt,n,G_com_left,G_com_right,F_left,F_right,control_active),dt);
         y(e,:) = ynew;

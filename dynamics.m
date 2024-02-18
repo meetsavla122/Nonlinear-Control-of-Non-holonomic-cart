@@ -58,7 +58,7 @@ else
     F_com_R_right = (G_I_right * transpose(R_I) * F_right);
 
     F_com_I = zeros(n,1);
-    F_com_I(1:3,1) = F_com_I_left + F_com_R_right 
+    F_com_I(1:3,1) = F_com_I_left + F_com_R_right ;
     
 end 
 

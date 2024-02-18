@@ -42,11 +42,11 @@ F_right = [Fx_right; Fy_right; tau_right];
     y0(1,:) = [0 0 Theta];
     
     [desired] = desired_trajectory(tspan,control_active);
-    for e=1:length(tspan)
-        desired_ode = [desired(e,1); y0(e,2);desired(e,3)];
+    for e=1:len_tspan
+        desired_ode = [desired(1,e); y0(e,2);desired(3,e)];
         [error] = error_calculation(desired_ode,[y0(e,1);y0(e,2);y0(e,3)]);
         [ynew] = rungeKutta4(tspan(e),y0(e), @(t,x)dynamics(t, y,m,I, sigma,Q,R, false,tspan,error,dt,n,G_com_left,G_com_right,F_left,F_right,control_active),dt);
-        y(e,:) = ynew;
+        y(e,:) = [ynew(1) ynew(2) ynew(3)];
         y0(e+1,:) = [y(e,1) y(e,2) y(e,3)] ;
         counter=e;
     end
@@ -81,6 +81,9 @@ F_right = [Fx_right; Fy_right; tau_right];
         counter = j;
         path(xx(j),yy(j),xx(jj), yy(jj),xmin, xmax, ymin,ymax,j, len)
         axis([xmin xmax ymin ymax])
+        if j == len 
+            plot(desired(1,:), desired(2,:))
+        end 
     end
     hold off
     pause (3)
